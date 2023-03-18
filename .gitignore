@@ -1,9 +1,25 @@
+*.zip
+*.Rhistory
+*.dat
+*.xml
+*.docx
+*.html
+
+# Archives
+IBMHRAnalyticsEmployeeAttrition.tex
+MovieLensRecommendationSist.tex
+
+# Folders
+MovieLensRecommendationSist_files/
+IBMHRAnalyticsEmployeeAttrition_files/
+
 # History files
 .Rhistory
 .Rapp.history
 
 # Session Data files
 .RData
+.RDataTmp
 
 # User-specific files
 .Ruserdata
@@ -37,3 +53,12 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# pkgdown site
+docs/
+
+# translation temp files
+po/*~
+
+# RStudio Connect folder
+rsconnect/
