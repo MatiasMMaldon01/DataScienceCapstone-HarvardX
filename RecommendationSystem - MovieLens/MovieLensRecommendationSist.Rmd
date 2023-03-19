@@ -157,9 +157,11 @@ edx_temp <- edx_temp %>% mutate(release_date = title %>% str_extract_all("\\([0-
                title = title %>% str_remove("\\([0-9]{4}\\)")%>% str_trim("right"))
 
 # Doing the same with the validation dataset in one step
-final_holdout_test <- final_holdout_test %>% mutate(release_date = title %>% str_extract_all("\\([0-9]{4}\\)") %>%
-                               str_extract("[0-9]{4}") %>% as.numeric(),
-                             title = title %>% str_remove("\\([0-9]{4}\\)")%>% str_trim("right"),
+final_holdout_test <- final_holdout_test %>% mutate(release_date = title %>% 
+                             str_extract_all("\\([0-9]{4}\\)") %>%
+                             str_extract("[0-9]{4}") %>% as.numeric(),
+                             title = title %>% str_remove("\\([0-9]{4}\\)")%>% 
+                               str_trim("right"),
                              year = timestamp %>% as_datetime() %>% year(),
                              month = timestamp %>% as_datetime() %>% month())
 ```
@@ -599,6 +601,8 @@ results %>% kable(caption = " Regularized Movie + User + Genres + Release Date E
    kable_paper(position = "center", latex_options = "HOLD_position", full_width = F , font_size = 10)
 ```
 \newpage 
+
+# Final Results
 
 ## Final Test with validation Data Set
 Having refined the model algorithm within the train and test sets created by partitioning edx, the final stage of the project was to train the algorithm using the full edx dataset and then to predict ratings within the validation dataset (final_holdout_test).
