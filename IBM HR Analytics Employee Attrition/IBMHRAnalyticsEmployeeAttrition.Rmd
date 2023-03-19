@@ -405,7 +405,7 @@ scale_values <- function(x){
   
 }
 
-# Normalize DataFrame
+# Normalize Data
 final_employees_df <- sapply(employees_dummie, scale_values) %>% as.data.frame()
 final_employees_df$Attrition <- as.factor(employees$Attrition)
 ```
@@ -679,14 +679,14 @@ results %>% kable(caption = "Final Results", booktabs = T) %>%
 ```
 \newpage
 
-# Conclusion
+# Final results
 
-After testing several machine learning algorithms, we can see that the best value in the AUC is the GBM model.Despite this, our model was still inefficient in predicting employees leaving the company (specificity). For this reason, we decided to apply three important techniques for handling unbalanced datasets (weighted, under-sampling and over-sampling). 
+After testing several machine learning algorithms, we can see that the best value in the AUC is the GBM model. Despite this, our model was still inefficient in predicting employees leaving the company (specificity). For this reason, we decided to apply three important techniques for handling unbalanced datasets (weighted, under-sampling and over-sampling). 
 
 As we saw in Table 9, our GBM model with down-sampling is the one that yields the best AUC values with `r roc(as.numeric(test_set$Attrition), as.numeric(y_hat_gbm_down))$auc`. This model, although it reduces the precision compared to the previous ones, manages to considerably increase the specificity with a value of `r specificity(gbm_down_cm)` surpassing the GBM model (which was the best of the previous ones) by approximately 45 points (around 127.95% better).
 
 ```{r ROC Curves, echo=FALSE, fig.cap = "ROC Curves"}
-# Creating variables with ROC values
+# Creating variables with ROC values for each algorithms.
 roc_logit <- roc(as.numeric(test_set$Attrition), as.numeric(y_hat_logit))
 roc_rf <- roc(as.numeric(test_set$Attrition), as.numeric(y_hat_rf))
 roc_knn <- roc(as.numeric(test_set$Attrition),as.numeric(y_hat_knn))
@@ -700,7 +700,9 @@ plot(roc_knn, print.thres = T, print.thres.cex = 0.8, col = "navyblue", add = T)
 plot(roc_gbm, print.thres = T, print.thres.cex = 0.8, col = "chocolate3", add = T)
 plot(roc_down_gbm, print.thres = T, print.thres.cex = 0.8, col = "red", add = T)
 ```
+\newpage
 
+# Conclusion
 After creating an algorithm that can predict around 80% of employees leaving the company, we can extract the most important variables that were used to build the model. Let's make a plot!
 ```{r Variable Importance, echo=FALSE , fig.height= 10, fig.width= 8, fig.cap = "Variable importance According to GBM Under-Sampling"}
 # Plotting variable importance of GBM Under-Sampling algorithm

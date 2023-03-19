@@ -177,7 +177,7 @@ ordinal_encode <- function(x){
     return(0)
   }
 }
-# Change values of "BusinessTravel" feature into numerical (0, 1, 2)
+# Changing values of "BusinessTravel" feature into numerical (0, 1, 2)
 employees$BusinessTravel <- sapply(employees$BusinessTravel, ordinal_encode)
 
 # One_Hot_Encoding "Department", "MaritalStatus", "JobRole" and "EducationField"
@@ -190,7 +190,7 @@ scale_values <- function(x){
   
 }
 
-# Normalize DataFrame
+# Normalizing Data
 final_employees_df <- sapply(employees_dummie, scale_values) %>% as.data.frame()
 final_employees_df$Attrition <- as.factor(employees$Attrition)
 
@@ -237,13 +237,13 @@ ctrl <- trainControl(method = "cv",
 
 # The metric to compare the model is ROC
 metric <- "ROC"
-set.seed(123)
 
 # Selecting our mtry value
 mtry <- sqrt(ncol(train_set))
 tunegrid <- expand.grid(.mtry=mtry)
 
 # Random Forest Model
+set.seed(123)
 rf_fit <- train(Attrition~., 
                 data=train_set, 
                 method='rf', 
@@ -344,17 +344,19 @@ new_row_gbm_up <- list(Method = "GBM Over-Sampling", Accuracy = confusionMatrix(
                        Sensitivity = sensitivity(gbm_up_cm), Specificity = specificity(gbm_up_cm), 
                        AUC = roc(as.numeric(test_set$Attrition), as.numeric(y_hat_gbm_up))$auc)
 
+# Printing table with GBM algorithms 
 gbm_table <- gbm_table %>% rbind(new_row_gbm_up)
 
 gbm_table
 
+# Printing table with all results
 results <- results %>% rbind(new_row_gbm_down)
 
 results
 
 ###############################################################################################
 
-# Creating variables with ROC values
+# Creating variables with ROC values for each algorithms.
 roc_logit <- roc(as.numeric(test_set$Attrition), as.numeric(y_hat_logit))
 roc_rf <- roc(as.numeric(test_set$Attrition), as.numeric(y_hat_rf))
 roc_knn <- roc(as.numeric(test_set$Attrition),as.numeric(y_hat_knn))

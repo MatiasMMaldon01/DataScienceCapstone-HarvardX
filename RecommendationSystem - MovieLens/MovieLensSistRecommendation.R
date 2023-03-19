@@ -86,11 +86,11 @@ edx_temp <- edx %>% separate_rows(genres, sep = "\\|", convert = T)
 
 final_holdout_test <- final_holdout_test %>% separate_rows(genres, sep = "\\|", convert = T)
 
-# Convert timestamp predictor into a human most readable format
+# Converting timestamp predictor into a human most readable format
 edx_temp$year <- edx_temp$timestamp %>% as_datetime() %>% year()
 edx_temp$month <- edx_temp$timestamp %>% as_datetime() %>% month()
 
-#Extract the release date from title to a new predictor
+#Extracting the release date from title to a new predictor
 edx_temp <- edx_temp %>% mutate(release_date = title %>% str_extract_all("\\([0-9]{4}\\)") %>%
                  str_extract("[0-9]{4}") %>% as.numeric(),
                title = title %>% str_remove("\\([0-9]{4}\\)")%>% str_trim("right"))
@@ -102,6 +102,7 @@ final_holdout_test <- final_holdout_test %>% mutate(release_date = title %>% str
                              year = timestamp %>% as_datetime() %>% year(),
                              month = timestamp %>% as_datetime() %>% month())
 
+# Extracting timestamp feature from both datasets
 edx_temp <- edx_temp %>% select(-timestamp)
 final_holdout_test <- final_holdout_test %>% select(-timestamp)
 #################################################################################################
@@ -233,7 +234,7 @@ edx_temp %>% group_by(genres) %>%
 #################################################################################################
                                      # Creating the model
 #################################################################################################
-# Create data partition
+# Splitting data into train and test set
 set.seed(1, sample.kind="Rounding")
 index_test <- createDataPartition(edx_temp$rating, times = 1, p=.25, list=FALSE)
 
@@ -369,6 +370,7 @@ rmses <- sapply(lambdas, function(l){
 
 optimal_lambda <- lambdas[which.min(rmses)]
 
+# Lambdas Plot
 data.frame(lambdas, rmses) %>%
   ggplot(aes(lambdas, rmses)) +
   geom_point() +
