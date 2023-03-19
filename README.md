@@ -9,7 +9,7 @@ The purpose of this project is creating a recommendation system using the **Movi
 
 This report sets out the exploratory analysis of the data using common visualization techniques followed by the methods used to develop, train and test the algorithm before providing and discussing the results from each iteration of the algorithm and concluding on the outcome of the final model and its limitations.
 
-## IBMHREmployeeAttrition
+## IBMHREmployeeAttrition - Choose your Own
 
 The purpose of this project is to investigate the employee attrition of a company and predicting the potential employees who would leave the company. We will be working with a dataset extracted from [Kaggle](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset) called "IBM HR Analytics Employee Attrition & Performance".
 
